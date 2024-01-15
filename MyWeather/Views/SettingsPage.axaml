@@ -42,7 +42,7 @@
 					<TextBlock Text="Давление" Margin="0,25,0,0"/>
 				</StackPanel>
 				<StackPanel Grid.Column="1" HorizontalAlignment="Left">
-					<Button Name="TempBtn1" Content="C°" CornerRadius="12" Width="80" Background="#e3e3e3" HorizontalContentAlignment="Center" Margin="0,15,0,0">
+					<Button Name="TempBtn1" Content="°C" CornerRadius="12" Width="80" Background="#e3e3e3" HorizontalContentAlignment="Center" Margin="0,15,0,0">
 						<Button.Effect>
 							<DropShadowEffect Opacity="1" BlurRadius="4" OffsetY="4" OffsetX="0" Color="#bfbfbf"/>
 						</Button.Effect>

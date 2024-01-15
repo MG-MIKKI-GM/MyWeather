@@ -41,7 +41,6 @@ namespace MyWeather.Views
 
             MobileBackBtn.PointerPressed += MobileBackBtn_PointerPressed;
             WeekText.PointerPressed += WeekText_PointerPressed;
-            //this.SizeChanged += MainPageWindows_SizeChanged;
 
             Save.OnSave += Save_OnSave;
         }
@@ -58,20 +57,6 @@ namespace MyWeather.Views
             Mobile7Panel.IsVisible = true;
             MobileMainPanel.IsVisible = false;
             MobileBackBtn.IsVisible = true;
-        }
-
-        private void MainPageWindows_SizeChanged(object? sender, SizeChangedEventArgs e)
-        {
-            if(e.NewSize.Width >= 800)
-            {
-                WindowsVersionPanel.IsVisible = true;
-                MobileVersionPanel.IsVisible = false;
-            }
-            else
-            {
-                WindowsVersionPanel.IsVisible = false;
-                MobileVersionPanel.IsVisible = true;
-            }
         }
 
         public MainPageWindows(WeatherCity weatherCity, WeatherContent weatherContent) : this()
@@ -148,7 +133,7 @@ namespace MyWeather.Views
                     week = "ñåãîäíÿ";
 
                 days[i] = string.Format("{0:d2}", date.Day);
-                months[i] = month;
+                months[i] = month + ",";
                 weeks[i] = week;
                 uFIndex[i] = weatherContent.forecasts[i].parts.day.uv_index;
                 temps[i] = Save.Settings.Temp ? weatherContent.forecasts[i].parts.evening.temp_avg.ToString() : string.Format("{0:f1}", (weatherContent.forecasts[i].parts.evening.temp_avg * 1.8f + 32));
@@ -201,7 +186,7 @@ namespace MyWeather.Views
             WeatherCity.SpeedText = Save.Settings.Speed ? "ì/c" : "êì/÷";
             WeatherCity.HumidityText = "%";
             WeatherCity.PressureText = Save.Settings.Pressure ? "ìì ðò. ñò." : "ãÏà";
-            WeatherCity.TempText = Save.Settings.Temp ? "C°" : "°F";
+            WeatherCity.TempText = Save.Settings.Temp ? "°C" : "°F";
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

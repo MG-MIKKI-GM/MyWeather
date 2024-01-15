@@ -35,7 +35,7 @@ namespace MyWeather.Views
                 WeatherContent content = await WeatherAPI.GetWeather(love.Lat, love.Lon);
                 string speed = Save.Settings.Speed ? content.fact.wind_speed.ToString() + "ì/ñ" : (string.Format("{0:f0}", content.fact.wind_speed * 3.6) + "êì/÷");
                 string temp = Save.Settings.Temp ? content.fact.temp.ToString() : string.Format("{0:f1}", content.fact.temp * 1.8 + 32);
-                string tempText = Save.Settings.Temp ? "C°" : "°F";
+                string tempText = Save.Settings.Temp ? "°C" : "°F";
                 Bitmap icon = WeatherContent.GetIconWeather(content.fact.condition, content.fact.daytime);
 
                 NodePanel.Children.Add(CreateNode(speed, love.Name, temp, tempText, icon, content));

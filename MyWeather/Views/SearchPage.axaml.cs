@@ -48,7 +48,7 @@ namespace MyWeather.Views
                 WeatherContent content = await WeatherAPI.GetWeather(lat, lon);
                 string speed = Save.Settings.Speed ? content.fact.wind_speed.ToString() + "ì/ñ" : (string.Format("{0:f0}", content.fact.wind_speed * 3.6) + "êì/÷");
                 string temp = Save.Settings.Temp ? content.fact.temp.ToString() : string.Format("{0:f1}", content.fact.temp * 1.8 + 32);
-                string tempText = Save.Settings.Temp ? "C°" : "°F";
+                string tempText = Save.Settings.Temp ? "°C" : "°F";
                 Bitmap icon = WeatherContent.GetIconWeather(content.fact.condition, content.fact.daytime);
 
                 NodePanel.Children.Add(CreateNode(speed, cityName, temp, tempText, icon, content));
@@ -73,7 +73,7 @@ namespace MyWeather.Views
 
             Grid grid = new Grid()
             {
-                ColumnDefinitions = new ColumnDefinitions("1.5* * *"),
+                ColumnDefinitions = new ColumnDefinitions("2* * *"),
                 Margin = new Avalonia.Thickness(30, 0),
             };
             border.Child = grid;
