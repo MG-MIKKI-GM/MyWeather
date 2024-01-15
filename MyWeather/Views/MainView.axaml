@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:MyWeather.ViewModels"
+             xmlns:sun="clr-namespace:MyWeather.Views"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MyWeather.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+	<Grid Background="White">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="4*"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="0.3*"/>
+		</Grid.RowDefinitions>
+		<sun:Sun Grid.Row="1" Margin="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		<Grid Grid.Row="4" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+			<Image Source="/Assets/logo_osnovnoy_russkiy_chernyy.png" Stretch="Uniform"/>
+		</Grid>
+	</Grid>
+</UserControl>

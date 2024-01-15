@@ -1,0 +1,1492 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="375" d:DesignHeight="800"
+             x:Class="MyWeather.Views.MainPageWindows"
+             xmlns:sun="clr-namespace:MyWeather.Views" Name="mpw">
+
+	<UserControl.Styles>
+		<Style Selector="Image:pointerover">
+			<Setter Property="Opacity" Value="0.5"/>
+		</Style>
+		<Style Selector="TextBlock">
+			<Setter Property="FontFamily" Value="Ubuntu Condensed"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid Background="White">
+		<Grid Name="MobileVersionPanel" IsVisible="False">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="120"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<StackPanel IsVisible="False" Name="MobileBackBtn" ZIndex="1" Margin="65,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+				<Grid Margin="0,6,15,0">
+					<Grid.Styles>
+						<Style Selector="Border:pointerover">
+							<Setter Property="Opacity" Value="0.5"/>
+						</Style>
+					</Grid.Styles>
+					<Border Width="10" Height="3" CornerRadius="2" BorderThickness="2" BorderBrush="#646464">
+						<Border.RenderTransform>
+							<RotateTransform Angle="45"/>
+						</Border.RenderTransform>
+					</Border>
+					<Border Width="10" Height="3" Margin="0,0,0,10" CornerRadius="2" BorderThickness="2" BorderBrush="#646464">
+						<Border.RenderTransform>
+							<RotateTransform Angle="-45"/>
+						</Border.RenderTransform>
+					</Border>
+				</Grid>
+				<TextBlock Text="Прогноз на сегодня" Foreground="#646464"/>
+			</StackPanel>
+			<Grid Grid.Row="0" Margin="30,60,30,0" ColumnDefinitions="*, *">
+				<StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+					<TextBlock VerticalAlignment="Center" Text="{Binding WeatherCity.City, ElementName=mpw}" FontSize="18" FontWeight="Medium"/>
+					<TextBlock VerticalAlignment="Center" Text="Текущее место" FontSize="10" FontWeight="Light"/>
+				</StackPanel>
+				<StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+					<Image Name="SearchImageM" Height="21" Source="/Assets/Locations.png" Margin="0,0,0,0"/>
+					<Image Name="SettingsImageM" Height="21" Margin="32,0,0,0" Source="/Assets/settings.png" Stretch="Uniform"/>
+					<Image Name="LoveImageM" Height="21" Margin="32,0,0,0" Source="/Assets/love.png" Stretch="Uniform"/>
+				</StackPanel>
+			</Grid>
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" Name="Mobile7Panel" IsVisible="False" Grid.Row="1">
+				<StackPanel Margin="0,50,0,0">
+					<TextBlock Text="ПРОГНОЗ НА СЕГОДНЯ" HorizontalAlignment="Center" FontSize="24" FontWeight="Medium"/>
+					<Grid Margin="20,30,20,0" ColumnDefinitions="* * * * * * * *">
+						<Grid.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontSize" Value="12"/>
+								<Setter Property="Foreground" Value="#616161"/>
+							</Style>
+							<Style Selector="Image">
+								<Setter Property="Height" Value="24"/>
+								<Setter Property="Margin" Value="0,10,0,0"/>
+							</Style>
+							<Style Selector="StackPanel">
+								<Setter Property="HorizontalAlignment" Value="Center"/>
+							</Style>
+						</Grid.Styles>
+						<StackPanel Grid.Column="0" >
+							<TextBlock Text="{Binding WeatherCity.Times[0], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[0], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="1" >
+							<TextBlock Text="{Binding WeatherCity.Times[1], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[1], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="2" >
+							<TextBlock Text="{Binding WeatherCity.Times[2], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[2], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="3" >
+							<TextBlock Text="{Binding WeatherCity.Times[3], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[3], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="4" >
+							<TextBlock Text="{Binding WeatherCity.Times[4], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[4], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="5" >
+							<TextBlock Text="{Binding WeatherCity.Times[5], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[5], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="6" >
+							<TextBlock Text="{Binding WeatherCity.Times[6], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[6], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+						<StackPanel Grid.Column="7" >
+							<TextBlock Text="{Binding WeatherCity.Times[7], ElementName=mpw}"/>
+							<Image Source="{Binding WeatherCity.Icons[7], ElementName=mpw}"   Stretch="Uniform"/>
+						</StackPanel>
+					</Grid>
+					<StackPanel Margin="20,30,0,0">
+						<StackPanel.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontSize" Value="12"/>
+							</Style>
+						</StackPanel.Styles>
+						<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="18" Text="Ветер"/>
+						<Grid ColumnDefinitions="*,*,*,*">
+							<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+								<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.MorningSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+								<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.DaySpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+								<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.EveningSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+								<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.NightSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+						</Grid>
+						<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="18" Text="Влажность"/>
+						<Grid ColumnDefinitions="*,*,*,*">
+							<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+								<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.MorningHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+								<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.DayHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+								<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.EveningHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+							<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+								<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="{Binding WeatherCity.NightHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+									<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								</StackPanel>
+							</StackPanel>
+						</Grid>
+						<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="18" Text="Давление"/>
+						<Grid ColumnDefinitions="*,*,*,*">
+							<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+								<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+								<TextBlock Text="{Binding WeatherCity.MorningPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="12" FontWeight="Medium"/>
+							</StackPanel>
+							<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+								<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+								<TextBlock Text="{Binding WeatherCity.DayPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="12" FontWeight="Medium"/>
+							</StackPanel>
+							<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+								<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+								<TextBlock Text="{Binding WeatherCity.EveningPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="12" FontWeight="Medium"/>
+							</StackPanel>
+							<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+								<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+								<TextBlock Text="{Binding WeatherCity.NightPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="18" FontWeight="Medium"/>
+								<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="12" FontWeight="Medium"/>
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,35,0,0">
+						<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+							<Image Height="21" Margin="0,0,5,0" Source="/Assets/sunrise.png"/>
+							<TextBlock FontSize="18" Text="{Binding WeatherCity.Sunrises[0], ElementName=mpw}" Foreground="#646464"/>
+						</StackPanel>
+						<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+							<Image Height="21" Margin="0,0,5,0" Source="/Assets/sunset.png"/>
+							<TextBlock FontSize="18" Text="{Binding WeatherCity.Sunsets[0], ElementName=mpw}" Foreground="#646464"/>
+						</StackPanel>
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Left" Margin="20,0,0,0">
+						<TextBlock Margin="10,30,0,0" Text="Магнитное поле:  " FontSize="18" Foreground="#646464">
+							<Run Text="спокойное" Foreground="Black" FontSize="16"></Run>
+						</TextBlock>
+						<TextBlock Margin="10,5,0,10" Text="УФ-индекс:  " FontSize="18" Foreground="#646464">
+							<Run Text="{Binding WeatherCity.UFIndex[0], ElementName=mpw}" FontSize="16" Foreground="Black"></Run>
+						</TextBlock>
+					</StackPanel>
+				</StackPanel>
+			</ScrollViewer>
+			
+			<ScrollViewer Name="MobileMainPanel" IsVisible="True" VerticalScrollBarVisibility="Hidden" Grid.Row="1" >
+				<StackPanel Margin="0,60,0,0">
+					<StackPanel HorizontalAlignment="Center">
+						<StackPanel.Styles>
+							<Style Selector="TextBlock">
+								<Setter Property="FontWeight" Value="Medium"/>
+							</Style>
+						</StackPanel.Styles>
+						<StackPanel>
+							<TextBlock Text="{Binding WeatherCity.Weeks[0], ElementName=mpw}" FontSize="20" Foreground="#646464" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+							<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,10,0,0">
+								<TextBlock Text="{Binding WeatherCity.Days[0], ElementName=mpw}" VerticalAlignment="Center" FontSize="18" Foreground="#646464" HorizontalAlignment="Center"/>
+								<TextBlock Text="{Binding WeatherCity.Months[0], ElementName=mpw}" FontSize="18" Margin="2,0,0,0" Foreground="#646464" VerticalAlignment="Center"/>
+							</StackPanel>
+							<TextBlock Text="подробнее" Name="WeekText" FontSize="18" Foreground="#646464" HorizontalAlignment="Center" Margin="0,10,0,0">
+								<TextBlock.Styles>
+									<Style Selector="TextBlock:pointerover">
+										<Setter Property="Opacity" Value="0.5"/>
+									</Style>
+								</TextBlock.Styles>
+							</TextBlock>
+							<TextBlock Text="{Binding WeatherCity.Favourites, ElementName=mpw}" Name="MobileFavouritesText" FontSize="18" Foreground="#646464" HorizontalAlignment="Center" Margin="0,10,0,0">
+								<TextBlock.Styles>
+									<Style Selector="TextBlock:pointerover">
+										<Setter Property="Opacity" Value="0.5"/>
+									</Style>
+								</TextBlock.Styles>
+							</TextBlock>
+								<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+								<TextBlock FontSize="96" Foreground="Black" Text="{Binding WeatherCity.Temps[0], ElementName=mpw}" />
+								<TextBlock FontSize="36" Foreground="Black" Text="{Binding WeatherCity.TempText[0], ElementName=mpw}" Margin="0,0,0,15" VerticalAlignment="Bottom"/>
+							</StackPanel>
+							<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+								<Grid Margin="0,2,0,0">
+									<Border Width="1" Height="13" CornerRadius="10" Background="#646464" BorderThickness="0"/>
+									<Border Width="6" Height="1" CornerRadius="10" Margin="0,9,3.5,0" Background="#646464" BorderThickness="0">
+										<Border.RenderTransform>
+											<RotateTransform Angle="45"/>
+										</Border.RenderTransform>
+									</Border>
+									<Border Width="6" Height="1" CornerRadius="10" Margin="3.5,9,0,0" Background="#646464" BorderThickness="0">
+										<Border.RenderTransform>
+											<RotateTransform Angle="-45"/>
+										</Border.RenderTransform>
+									</Border>
+								</Grid>
+								<TextBlock Foreground="#646464" FontSize="18">
+									<Run Text="{Binding WeatherCity.MinTemps[0], ElementName=mpw}"/>
+									<Run Text="{Binding WeatherCity.TempText[0], ElementName=mpw}"/>
+								</TextBlock>
+								<Grid Margin="25,2,0,0">
+									<Border Width="1" Height="13" CornerRadius="10" Background="#646464" BorderThickness="0"/>
+									<Border Width="6" Height="1" CornerRadius="10" Margin="0,0,3.5,9" Background="#646464" BorderThickness="0">
+										<Border.RenderTransform>
+											<RotateTransform Angle="135"/>
+										</Border.RenderTransform>
+									</Border>
+									<Border Width="6" Height="1" CornerRadius="10" Margin="3.5,0,0,9" Background="#646464" BorderThickness="0">
+										<Border.RenderTransform>
+											<RotateTransform Angle="-135"/>
+										</Border.RenderTransform>
+									</Border>
+								</Grid>
+								<TextBlock Foreground="#646464" FontSize="18">
+									<Run Text="{Binding WeatherCity.MaxTemps[0], ElementName=mpw}"/>
+									<Run Text="{Binding WeatherCity.TempText[0], ElementName=mpw}"/>
+								</TextBlock>
+							</StackPanel>
+							<StackPanel HorizontalAlignment="Center" Margin="0,40,0,0">
+								<Image Height="120" Source="{Binding WeatherCity.Dayicons[0], ElementName=mpw}"/>
+								<TextBlock HorizontalAlignment="Center" Text="{Binding WeatherCity.Condition[0], ElementName=mpw}" Foreground="#646464" FontSize="18" Margin="0,10,0,0"/>
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+					<StackPanel HorizontalAlignment="Left" Margin="30,50,0,0">
+						<TextBlock Text="ПРОГНОЗ НА 7 ДНЕЙ" FontSize="24" FontWeight="Medium"/>
+					</StackPanel>
+					<StackPanel Margin="30,20">
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10" Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[0], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[0], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[0], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[0], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[0], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[0], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[1], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[1], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[1], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[1], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[1], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[1], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[2], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[2], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[2], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[2], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[2], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[2], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[3], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[3], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[3], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[3], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[3], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[3], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[4], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[4], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[4], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[4], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[4], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[4], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[5], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[5], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[5], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[5], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[5], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[5], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+						<Border BoxShadow="0 4 4 0 #bfbfbf" Margin="0,0,0,10"  Height="50" CornerRadius="15">
+							<Grid VerticalAlignment="Center" ColumnDefinitions="1.5* * *">
+								<StackPanel Margin="10,0,0,0" Grid.Column="0">
+									<TextBlock Foreground="#646464">
+										<Run Text="{Binding WeatherCity.Days[6], ElementName=mpw}"/>
+										<Run Text="{Binding WeatherCity.Months[6], ElementName=mpw}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding WeatherCity.Weeks[6], ElementName=mpw}" FontWeight="Medium" FontSize="18" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Margin="0,0,20,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+									<Image HorizontalAlignment="Center" Grid.Column="0" Height="24" Source="{Binding WeatherCity.Dayicons[6], ElementName=mpw}"/>
+								</StackPanel>
+								<Grid ColumnDefinitions="* *" Grid.Column="2">
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">
+										<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MinTemps[6], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1">
+										<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+										<TextBlock HorizontalAlignment="Center" FontSize="18">
+											<Run Text="{Binding WeatherCity.MaxTemps[6], ElementName=mpw}"/>
+											<Run Text="°"/>
+										</TextBlock>
+									</StackPanel>
+								</Grid>
+							</Grid>
+						</Border>
+					</StackPanel>
+				</StackPanel>
+			</ScrollViewer>
+		</Grid>
+		<Grid Name="WindowsVersionPanel" IsVisible="True">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="40"/>
+				<RowDefinition Height="300"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<StackPanel Grid.Row="0" Orientation="Horizontal">
+				<Image Name="SettingsImage" Source="/Assets/settings.png" Margin="50,20,0,0" Stretch="Uniform"/>
+				<Image Name="LoveImage" Source="/Assets/love.png" Margin="50,20,0,0" Stretch="Uniform"/>
+			</StackPanel>
+			<StackPanel Grid.Row="0" Margin="0,25,30,0" HorizontalAlignment="Right" Orientation="Horizontal">
+				<Grid>
+					<TextBox Name="SearchTextBox" BorderThickness="1" Foreground="Black" SelectionBrush="Black" SelectionForegroundBrush="White" Background="White" BorderBrush="#616161" Width="300" CornerRadius="10"/>
+					<Image Name="SearchImage" HorizontalAlignment="Right" Source="/Assets/search.png" Margin="0,0,10,0"/>
+				</Grid>
+				<Image Name="CloseImage" Margin="30,0,0,0" Source="/Assets/close.png"/>
+			</StackPanel>
+			<Grid Grid.Row="1">
+				<StackPanel Margin="50,100,0,0" Tag="ssaas">
+					<TextBlock VerticalAlignment="Center" Text="{Binding WeatherCity.City, ElementName=mpw}" FontSize="18" FontWeight="Medium"/>
+					<TextBlock VerticalAlignment="Center" Text="Текущее место" FontSize="13" Foreground="#616161" FontWeight="Light"/>
+					<TextBlock Name="FavouritesText" Margin="0,20,0,0" Text="{Binding WeatherCity.Favourites, ElementName=mpw}" FontSize="18">
+						<TextBlock.Styles>
+							<Style Selector="TextBlock:pointerover">
+								<Setter Property="Opacity" Value="0.5"/>
+							</Style>
+						</TextBlock.Styles>
+					</TextBlock>
+				</StackPanel>
+				<sun:Sun VerticalAlignment="Center" Height="200" HorizontalAlignment="Center"/>
+				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Tag="ssaas">
+				</StackPanel>
+			</Grid>
+			<ScrollViewer Margin="0,0,5,0" Grid.Row="2">
+				<StackPanel Margin="40,0">
+					<Border BorderBrush="#616161" Height="250" VerticalAlignment="Top" CornerRadius="50" BorderThickness="2">
+						<StackPanel>
+							<TextBlock Name="TextTest" HorizontalAlignment="Center" Margin="0,30,0,0" Text="ПРОГНОЗ НА СЕГОДНЯ" Foreground="#181818" FontSize="36" FontWeight="Medium"/>
+							<Grid Margin="0,30,0,0" ColumnDefinitions="* * * * * * * *">
+								<Grid.Styles>
+									<Style Selector="TextBlock">
+										<Setter Property="FontSize" Value="22"/>
+										<Setter Property="Foreground" Value="#616161"/>
+									</Style>
+									<Style Selector="StackPanel">
+										<Setter Property="HorizontalAlignment" Value="Center"/>
+									</Style>
+								</Grid.Styles>
+								<StackPanel Grid.Column="0" >
+									<TextBlock Text="{Binding WeatherCity.Times[0], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[0], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="1" >
+									<TextBlock Text="{Binding WeatherCity.Times[1], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[1], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="2" >
+									<TextBlock Text="{Binding WeatherCity.Times[2], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[2], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="3" >
+									<TextBlock Text="{Binding WeatherCity.Times[3], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[3], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="4" >
+									<TextBlock Text="{Binding WeatherCity.Times[4], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[4], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="5" >
+									<TextBlock Text="{Binding WeatherCity.Times[5], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[5], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="6" >
+									<TextBlock Text="{Binding WeatherCity.Times[6], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[6], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+								<StackPanel Grid.Column="7" >
+									<TextBlock Text="{Binding WeatherCity.Times[7], ElementName=mpw}"/>
+									<Image Source="{Binding WeatherCity.Icons[7], ElementName=mpw}" Margin="0,25,0,0" Height="60" Stretch="Uniform"/>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+					</Border>
+					<StackPanel Grid.Row="1">
+						<StackPanel.Styles>
+							<Style Selector="Border">
+								<Setter Property="Margin" Value="20"/>
+								<Setter Property="CornerRadius" Value="50"/>
+								<Setter Property="BorderThickness" Value="0"/>
+								<Setter Property="BorderBrush" Value="Transparent"/>
+								<Setter Property="Height" Value="300"/>
+								<Setter Property="BoxShadow" Value="0 4 4 0 #bfbfbf"/>
+							</Style>
+						</StackPanel.Styles>
+						<TextBlock Text="ПРОГНОЗ НА 7 ДНЕЙ" Margin="0,60,0,20" FontSize="30" FontWeight="Medium"/>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[0], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[0], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[0], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[0], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[0], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[0], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[0], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[0], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[0], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[0], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[1], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[1], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[1], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[1], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[1], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[1], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[1], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[1], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[1], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[1], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[2], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[2], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[2], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[2], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[2], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[2], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[2], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[2], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[2], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[2], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[3], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[3], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[3], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[3], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[3], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[3], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[3], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[3], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[3], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[3], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[4], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[4], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[4], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[4], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[4], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[4], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[4], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[4], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[4], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[4], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[5], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[5], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[5], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[5], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[5], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[5], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[5], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[5], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[5], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[5], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+						<Border>
+							<Grid ColumnDefinitions="0.8*, 0.8*, *">
+								<StackPanel Grid.Column="0">
+									<StackPanel Orientation="Horizontal" Margin="30,50,0,0">
+										<TextBlock Text="{Binding WeatherCity.Days[6], ElementName=mpw}" FontSize="56" FontWeight="Medium"/>
+										<StackPanel Margin="10,11,0,0">
+											<TextBlock Text="{Binding WeatherCity.Months[6], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.Weeks[6], ElementName=mpw}" FontSize="20" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding WeatherCity.Temps[6], ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="30,20,0,0"/>
+										<TextBlock Text="{Binding WeatherCity.TempText, ElementName=mpw}" FontSize="56" FontWeight="Medium" Margin="10,20,0,0"/>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="1">
+									<Image Source="{Binding WeatherCity.Dayicons[6], ElementName=mpw}" Margin="0,30,0,0" Height="120" HorizontalAlignment="Center"/>
+									<TextBlock Text="{Binding WeatherCity.Condition[6], ElementName=mpw}" FontSize="19" HorizontalAlignment="Center" Foreground="#646464"/>
+									<StackPanel HorizontalAlignment="Center" Margin="0,0,20,0">
+										<TextBlock Margin="10,20,0,0" Text="Магнитное поле:  " Foreground="#646464">
+											<Run Text="спокойное" Foreground="Black"></Run>
+										</TextBlock>
+										<TextBlock Margin="10,5,0,0" Text="УФ-индекс:  " Foreground="#646464">
+											<Run Text="{Binding WeatherCity.UFIndex[6], ElementName=mpw}" Foreground="Black"></Run>
+										</TextBlock>
+									</StackPanel>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+										<StackPanel Margin="0,0,50,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunrise.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunrises[6], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+										<StackPanel Margin="50,0,0,0" Orientation="Horizontal">
+											<Image Height="20" Source="/Assets/sunset.png"/>
+											<TextBlock Text="{Binding WeatherCity.Sunsets[6], ElementName=mpw}" Foreground="#646464"/>
+										</StackPanel>
+									</StackPanel>
+								</StackPanel>
+								<StackPanel Grid.Column="2" Margin="15,0,0,0">
+									<TextBlock Margin="0,10,0,0" Foreground="#646464" FontSize="20" Text="Ветер"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningSpeeds[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DaySpeeds[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningSpeeds[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightSpeeds[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.SpeedText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Влажность"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.MorningHumidities[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.DayHumidities[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.EveningHumidities[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding WeatherCity.NightHumidities[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+												<TextBlock Text="{Binding WeatherCity.HumidityText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<TextBlock Margin="0,25,0,0" Foreground="#646464" FontSize="20" Text="Давление"/>
+									<Grid ColumnDefinitions="*,*,*,*">
+										<StackPanel Grid.Column="0" HorizontalAlignment="Left">
+											<TextBlock Text="Утро" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.MorningPressures[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Left">
+											<TextBlock Text="День" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.DayPressures[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="2" HorizontalAlignment="Left">
+											<TextBlock Text="Вечер" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.EveningPressures[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+										<StackPanel Grid.Column="3" HorizontalAlignment="Left">
+											<TextBlock Text="Ночь" HorizontalAlignment="Center" Foreground="#646464"/>
+											<TextBlock Text="{Binding WeatherCity.NightPressures[6], ElementName=mpw}" HorizontalAlignment="Center" Foreground="Black" FontSize="16" FontWeight="Medium"/>
+											<TextBlock Text="{Binding WeatherCity.PressureText, ElementName=mpw}" HorizontalAlignment="Center" Foreground="#646464" FontSize="11" FontWeight="Medium"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</StackPanel>
+				</StackPanel>
+			</ScrollViewer>
+		</Grid>
+	</Grid>
+</UserControl>

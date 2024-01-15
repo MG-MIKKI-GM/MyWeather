@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MyWeather.Views.SearchPage" Background="White">
+	<Grid>
+		<Grid.Styles>
+			<Style Selector="TextBlock">
+				<Setter Property="Foreground" Value="#646464"/>
+				<Setter Property="FontFamily" Value="Ubuntu Condensed"/>
+				<Setter Property="FontSize" Value="18"/>
+			</Style>
+			<Style Selector="Image:pointerover">
+				<Setter Property="Opacity" Value="0.5"/>
+			</Style>
+		</Grid.Styles>
+		<StackPanel>
+			<StackPanel Name="BackBtn" ZIndex="1" Margin="65,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+				<Grid Margin="0,6,15,0">
+					<Grid.Styles>
+						<Style Selector="Border:pointerover">
+							<Setter Property="Opacity" Value="0.5"/>
+						</Style>
+					</Grid.Styles>
+					<Border Width="10" Height="3" CornerRadius="2" BorderThickness="2" BorderBrush="#646464">
+						<Border.RenderTransform>
+							<RotateTransform Angle="45"/>
+						</Border.RenderTransform>
+					</Border>
+					<Border Width="10" Height="3" Margin="0,0,0,10" CornerRadius="2" BorderThickness="2" BorderBrush="#646464">
+						<Border.RenderTransform>
+							<RotateTransform Angle="-45"/>
+						</Border.RenderTransform>
+					</Border>
+				</Grid>
+				<TextBlock Text="Поиск"/>
+			</StackPanel>
+			<Grid Height="20" Margin="40,30,40,0">
+				<TextBox Name="SearchTextBox" BorderThickness="1" Foreground="Black" SelectionBrush="Black" SelectionForegroundBrush="White" Background="White" BorderBrush="#616161" CornerRadius="15"/>
+				<Image Name="SearchImage" HorizontalAlignment="Right" Source="/Assets/search.png" Margin="0,0,10,0"/>
+			</Grid>
+		</StackPanel>
+		<StackPanel Name="NodePanel" Margin="30,150,30,30">
+			<StackPanel.Styles>
+				<Style Selector="Border:pointerover">
+					<Setter Property="Opacity" Value="0.5"/>
+				</Style>
+			</StackPanel.Styles>
+			<TextBlock Name="EmptyListText" HorizontalAlignment="Center" FontSize="18" Text="Ничего не найдено"/>
+		</StackPanel>
+	</Grid>
+</UserControl>
