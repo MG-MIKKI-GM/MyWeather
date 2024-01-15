@@ -15,7 +15,6 @@
 		</Style>
 	</UserControl.Styles>
 
-	
 	<Grid Background="White">
 		<Grid Name="MobileVersionPanel" IsVisible="False">
 			<Grid.RowDefinitions>
